@@ -13,32 +13,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/useAuth";
 
-export default function LoginForm({ onLogin, loggedIn }) {
+export default function LoginForm() {
     const [form, setForm] = useState({});
-
-    const fetchLogin = async () => {
-        const options = {
-            method: "POST",
-            url: "/login",
-            data: {
-                email: form.email,
-                password: form.password 
-            }
-        };
-
-        try {
-            let response = await axios.request(options);
-            console.log("login api response:", response.data);
-            
-            if (response.data.token) {
-                onLogin(true, response.data.token);
-            }
-        } catch (err) {
-            console.error("error logging in", err.response?.data || err.message);
-            onLogin(false, null);
-        }
-    };
+    const { onLogin } = useAuth();
 
     const handleForm = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });
@@ -46,9 +25,8 @@ export default function LoginForm({ onLogin, loggedIn }) {
 
     const submitForm = (event) => {
         event.preventDefault();
-        fetchLogin();
-
         console.log("submitted form! with data:", form);
+        onLogin(form.email, form.password);
     };
 
     return (

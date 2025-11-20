@@ -1,3 +1,5 @@
+import { useAuth } from "@/hooks/useAuth";
+
 import {
     IconCreditCard,
     IconDotsVertical,
@@ -23,8 +25,9 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar";
 
-export function NavUser({ user, onLogin }) {
+export function NavUser({ user }) {
     const { isMobile } = useSidebar();
+    const { onLogOut } = useAuth()
 
     return (
         <SidebarMenu>
@@ -85,7 +88,7 @@ export function NavUser({ user, onLogin }) {
                         <DropdownMenuSeparator />
 
                         <DropdownMenuItem onClick={() => {
-                            onLogin(false)
+                            onLogOut()
                         }}>
                             <IconLogout />
                             Log out

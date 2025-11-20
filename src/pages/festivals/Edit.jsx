@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function FestivalsEdit() {
     const [form, setForm] = useState({
@@ -16,7 +17,7 @@ export default function FestivalsEdit() {
         end_date: "",
     });
 
-    const token = localStorage.getItem("token");
+    const { token } = useAuth();
 
     useEffect(() => {
         const fetchFestivals = async () => {

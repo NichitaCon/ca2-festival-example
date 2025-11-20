@@ -59,7 +59,7 @@ const data = {
     ],
 };
 
-export function AppSidebar({ onLogin, loggedIn, ...props }) {
+export function AppSidebar({ ...props }) {
     const location = useLocation();
     const message = location.state?.message;
     const type = location.state?.type;
@@ -71,9 +71,8 @@ export function AppSidebar({ onLogin, loggedIn, ...props }) {
             } else if (type === "error") {
                 toast.error(message);
             } else {
-                toast(message)
+                toast(message);
             }
-
         }
     }, [message]);
     return (
@@ -102,7 +101,7 @@ export function AppSidebar({ onLogin, loggedIn, ...props }) {
                     <NavMain items={data.navMain} />
                 </SidebarContent>
                 <SidebarFooter>
-                    <NavUser user={data.user} onLogin={onLogin} />
+                    <NavUser user={data.user} />
                 </SidebarFooter>
             </Sidebar>
         </>

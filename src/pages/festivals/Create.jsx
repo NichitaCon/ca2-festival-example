@@ -4,6 +4,7 @@ import axios from "@/config/api";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function FestivalsCreate() {
     const [form, setForm] = useState({
@@ -24,7 +25,7 @@ export default function FestivalsCreate() {
     };
 
     const createFestival = async () => {
-        const token = localStorage.getItem("token");
+        const { token } = useAuth();
         const options = {
             method: "POST",
             url: `/festivals`,
