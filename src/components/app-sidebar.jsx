@@ -1,15 +1,20 @@
 import * as React from "react";
-import { useEffect } from "react";
 import {
-    IconDashboard,
-    IconInnerShadowTop,
     IconConfetti,
     IconTheater,
+    IconDashboard,
     IconMicrophone2,
+    IconInnerShadowTop,
     IconMusic,
+    IconListCheck,
 } from "@tabler/icons-react";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 import { NavMain } from "@/components/nav-main";
+import { NavExamples } from "@/components/nav-examples";
 import { NavUser } from "@/components/nav-user";
 import {
     Sidebar,
@@ -20,9 +25,6 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useLocation } from "react-router";
-import { toast } from "sonner";
-import { Toaster } from "./ui/sonner";
 
 const data = {
     user: {
@@ -57,28 +59,38 @@ const data = {
             icon: IconMusic,
         },
     ],
+    examples: [
+        {
+            name: "Forms & Validation",
+            url: "/forms",
+            icon: IconListCheck,
+        },
+    ],
 };
 
 export function AppSidebar({ ...props }) {
     const location = useLocation();
-    const message = location.state?.message;
-    const type = location.state?.type;
+
+    console.log(location);
+
+    let message = location.state?.message;
+    let type = location.state?.type;
 
     useEffect(() => {
         if (message) {
-            if (type === "success") {
-                toast.success(message);
-            } else if (type === "error") {
+            if (type === "error") {
                 toast.error(message);
+            } else if (type === "success") {
+                toast.success(message);
             } else {
                 toast(message);
             }
         }
     }, [message]);
+
     return (
         <>
             <Toaster position="top-center" richColors />
-
             <Sidebar collapsible="offcanvas" {...props}>
                 <SidebarHeader>
                     <SidebarMenu>
@@ -99,6 +111,7 @@ export function AppSidebar({ ...props }) {
                 </SidebarHeader>
                 <SidebarContent>
                     <NavMain items={data.navMain} />
+                    <NavExamples items={data.examples} />
                 </SidebarContent>
                 <SidebarFooter>
                     <NavUser user={data.user} />

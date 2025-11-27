@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { Trash } from "lucide-react";
-import axios from "@/config/api"
+import axios from "@/config/api";
 import { useState } from "react";
 
 export default function DeleteBtn({ resource, id, onDeleteCallBack }) {

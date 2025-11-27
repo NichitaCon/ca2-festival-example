@@ -13,6 +13,8 @@ import FestivalsIndex from "./pages/festivals/Index";
 import ShowFestival from "./pages/festivals/Show";
 import FestivalsCreate from "./pages/festivals/Create";
 import FestivalsEdit from "./pages/festivals/Edit";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import FormExamples from "@/pages/examples/Forms";
 
 export default function App() {
     return (
@@ -35,22 +37,30 @@ export default function App() {
                                     {/* Main content */}
                                     <Routes>
                                         <Route path="/" element={<Home />} />
-
                                         <Route
                                             path="/festivals"
                                             element={<FestivalsIndex />}
                                         />
                                         <Route
-                                            path="/festivals/:id"
-                                            element={<ShowFestival />}
-                                        />
+                                            path="/"
+                                            element={<ProtectedRoute />}
+                                        >
+                                            <Route
+                                                path="/festivals/:id"
+                                                element={<ShowFestival />}
+                                            />
+                                            <Route
+                                                path="/festivals/:id/edit"
+                                                element={<FestivalsEdit />}
+                                            />
+                                            <Route
+                                                path="/festivals/create"
+                                                element={<FestivalsCreate />}
+                                            />
+                                        </Route>
                                         <Route
-                                            path="/festivals/:id/edit"
-                                            element={<FestivalsEdit />}
-                                        />
-                                        <Route
-                                            path="/festivals/create"
-                                            element={<FestivalsCreate />}
+                                            path="/forms"
+                                            element={<FormExamples />}
                                         />
                                     </Routes>
                                 </div>
